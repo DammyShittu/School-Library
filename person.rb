@@ -1,5 +1,5 @@
 # rubocop: disable Style/OptionalBooleanParameter
-
+require_relative 'corrector'
 class Person
   attr_accessor :name, :age
   attr_reader :id
@@ -9,6 +9,7 @@ class Person
     @age = age
     @name = name
     @parent_permission = parent_permission
+    @corrector = Corrector.new
   end
 
   def of_age?
@@ -17,6 +18,10 @@ class Person
 
   def can_use_services?
     of_age? || @parent_permission
+  end
+
+  def validate_name
+    @name = @corrector.correct_name(@name)
   end
 
   private :of_age?
