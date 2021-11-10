@@ -27,7 +27,7 @@ class Person
   end
 
   def add_rentals(date, book)
-      Rental.new(date, book, self)
+    Rental.new(date, book, self)
   end
 
   private :of_age?
