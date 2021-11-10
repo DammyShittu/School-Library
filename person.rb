@@ -1,7 +1,8 @@
 # rubocop: disable Style/OptionalBooleanParameter
 require_relative 'corrector'
+require_relative 'rental'
 class Person
-  attr_accessor :name, :age
+  attr_accessor :name, :age, :rentals
   attr_reader :id
 
   def initialize(age, name = 'Unknown', parent_permission = true)
@@ -10,6 +11,7 @@ class Person
     @name = name
     @parent_permission = parent_permission
     @corrector = Corrector.new
+    @rentals = []
   end
 
   def of_age?
@@ -22,6 +24,10 @@ class Person
 
   def validate_name
     @name = @corrector.correct_name(@name)
+  end
+
+  def add_rentals(date, book)
+    Rental.new(date, book, self)
   end
 
   private :of_age?
